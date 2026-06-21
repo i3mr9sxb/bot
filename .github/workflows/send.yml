@@ -1,0 +1,43 @@
+name: Discord Random Bot
+
+permissions:
+  contents: write
+
+on:
+  workflow_dispatch:
+    inputs:
+      message:
+        description: 'Discord id'
+        required: false
+        default: '960451869862412328'
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: npm install
+
+      - run: node main.js
+        env:
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+          CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
+          TARGET_USER_ID: ${{ secrets.TARGET_USER_ID }}
+          MANUAL_MESSAGE: ${{ github.event.inputs.message }}
+
+      - name: Commit files
+        run: |
+          git config --global user.name github-actions
+          git config --global user.email github-actions@github.com
+
+          git add data/
+
+          git commit -m "update history [skip ci]" || echo "nothing to commit"
+
+          git push
