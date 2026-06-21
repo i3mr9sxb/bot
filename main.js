@@ -14,6 +14,7 @@ async function api(method, path, body) {
   };
   if (body) opts.body = JSON.stringify(body);
   const res = await fetch(path, opts);
+  console.log("Status" + res.status)
   return res.json();
 }
 
