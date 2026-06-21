@@ -1,4 +1,4 @@
-name: Discord Random Bot
+name: Send Auth
 
 permissions:
   contents: write
