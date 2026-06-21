@@ -26,10 +26,7 @@ jobs:
 
       - run: node main.js
         env:
-          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
-          CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
-          TARGET_USER_ID: ${{ secrets.TARGET_USER_ID }}
-          MANUAL_MESSAGE: ${{ github.event.inputs.message }}
+          DISCORD_ID: ${{ github.event.inputs.message }}
 
       - name: Commit files
         run: |
